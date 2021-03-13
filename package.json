@@ -1,0 +1,8 @@
+{
+  "name": "api-vuttr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:cvieira850/api-vuttr.git",
+  "author": "Caio Vieira <contato@caiovieira.com.br>",
+  "license": "MIT"
+}
