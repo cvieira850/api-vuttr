@@ -1,6 +1,6 @@
 import { AddToolController } from './add-tool-controller'
 import { AddTool, AddToolModel, ToolModel, HttpRequest } from './add-tool-protocols'
-import { ServerError } from '../../errors'
+import { serverError } from '../../helpers/http/http-helper'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
@@ -62,9 +62,7 @@ describe('AddTool Controller', () => {
       jest.spyOn(addToolStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
       const httpRequest = makeFakeHttpRequest()
       const httpResponse = await sut.handle(httpRequest)
-      const error = new Error()
-      expect(httpResponse.statusCode).toBe(500)
-      expect(httpResponse.body).toEqual(new ServerError(error.stack))
+      expect(httpResponse).toEqual(serverError(new Error()))
     })
   })
 })

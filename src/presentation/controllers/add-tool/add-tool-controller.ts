@@ -1,6 +1,6 @@
 
 import { AddTool, HttpRequest, HttpResponse } from './add-tool-protocols'
-import { ServerError } from '../../errors'
+import { serverError } from '../../helpers/http/http-helper'
 export class AddToolController {
   constructor (private readonly addTool: AddTool) {}
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -8,10 +8,7 @@ export class AddToolController {
       await this.addTool.add(httpRequest.body)
       return null
     } catch (error) {
-      return new Promise(resolve => resolve({
-        statusCode: 500,
-        body: new ServerError(error.stack)
-      }))
+      return serverError(error)
     }
   }
 }
