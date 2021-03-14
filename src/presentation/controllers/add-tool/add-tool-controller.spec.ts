@@ -24,18 +24,22 @@ const makeFakeTool = (): ToolModel => ({
     'any_other_tag'
   ]
 })
+
+const makeAddTool = (): AddTool => {
+  class AddToolStub implements AddTool {
+    async add (data: AddToolModel): Promise<ToolModel> {
+      return new Promise(resolve => resolve(makeFakeTool()))
+    }
+  }
+  return new AddToolStub()
+}
 interface SutTypes {
   sut: AddToolController
   addToolStub: AddTool
 }
 
 const makeSut = (): SutTypes => {
-  class AddToolStub implements AddTool {
-    async add (data: AddToolModel): Promise<ToolModel> {
-      return new Promise(resolve => resolve(makeFakeTool()))
-    }
-  }
-  const addToolStub = new AddToolStub()
+  const addToolStub = makeAddTool()
   const sut = new AddToolController(addToolStub)
 
   return {
