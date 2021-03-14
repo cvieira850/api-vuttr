@@ -1,5 +1,6 @@
 import { AddToolController } from './add-tool-controller'
-import { AddTool,AddToolModel,ToolModel, HttpRequest } from './add-tool-protocols'
+import { AddTool, AddToolModel, ToolModel, HttpRequest } from './add-tool-protocols'
+import { ServerError } from '../../errors'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {
@@ -47,10 +48,19 @@ describe('AddTool Controller', () => {
   describe('AddTool', () => {
     test('Should call AddTool with correct values', async () => {
       const { sut, addToolStub } = makeSut()
-      const addSpy = jest.spyOn(addToolStub,'add')
+      const addSpy = jest.spyOn(addToolStub, 'add')
       const httpRequest = makeFakeHttpRequest()
       await sut.handle(httpRequest)
       expect(addSpy).toHaveBeenCalledWith(httpRequest.body)
+    })
+    test('Should return 500 if AddTool throws', async () => {
+      const { sut, addToolStub } = makeSut()
+      jest.spyOn(addToolStub, 'add').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      const httpRequest = makeFakeHttpRequest()
+      const httpResponse = await sut.handle(httpRequest)
+      const error = new Error()
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body).toEqual(new ServerError(error.stack))
     })
   })
 })
