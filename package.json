@@ -6,8 +6,8 @@
   "author": "Caio Vieira <contato@caiovieira.com.br>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
-    "test:staged": "jest"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --detectOpenHandles",
+    "test:staged": "yarn test  --findRelatedTests"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
