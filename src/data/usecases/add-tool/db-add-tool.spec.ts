@@ -60,4 +60,10 @@ describe('DbAddTool Usecase', () => {
     const promise = sut.add(makeFakeToolData())
     await expect(promise).rejects.toThrow()
   })
+  test('Should return a tool on success ', async () => {
+    const { sut } = makeSut()
+    const toolData = makeFakeToolData()
+    const tool = await sut.add(toolData)
+    expect(tool).toEqual(makeFakeTool())
+  })
 })
