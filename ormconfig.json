@@ -1,0 +1,29 @@
+[ {
+  "name": "default",
+  "type": "postgres",
+  "host": "localhost",
+  "port": "5432",
+  "username": "docker",
+  "password": "123mudar",
+  "database": "vuttr",
+  "entities": ["./src/infra/postgresql/typeorm/entities/*.ts"],
+  "migrations": ["./src/infra/postgresql/typeorm/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/infra/postgresql/typeorm/migrations"
+  }
+}, 
+{
+  "name": "test",
+  "type": "postgres",
+  "host": "localhost",
+  "port": "5432",
+  "username": "docker",
+  "password": "123mudar",
+  "database": "vuttr_tests",
+  "entities": ["./src/infra/postgresql/typeorm/entities/*.ts"],
+  "migrations": ["./src/infra/postgresql/typeorm/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/infra/postgresql/typeorm/migrations"
+  }
+}
+]
